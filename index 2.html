@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<title>Pakyu Heart Animation</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    45deg, #ff69b4, #b967ff, #ff1493
+  );
+  background-size: 400% 400%;
+  animation: bgMove 6s infinite alternate;
+  font-family: Arial, sans-serif;
+}
+
+@keyframes bgMove {
+  0% { background-position: left; }
+  100% { background-position: right; }
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  font-size: clamp(55px, 13vw, 110px);
+  color: white;
+  text-shadow: 0 0 15px #ff0080,
+               0 0 35px #ff00ff;
+  animation: bounce 1s infinite alternate;
+}
+
+.emoji {
+  font-size: 85px;
+  animation: spin 2s infinite alternate;
+}
+
+.message {
+  color: white;
+  font-size: 26px;
+  margin-top: 20px;
+  animation: pulse 1s infinite alternate;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+}
+
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+@keyframes spin {
+  from { transform: rotate(-20deg); }
+  to { transform: rotate(20deg); }
+}
+
+@keyframes pulse {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>PAKYU!</h1>
+  <div class="emoji">🖕💗</div>
+  <div class="message">
+    💖 PAKYU KA SAKIN MWA MWA 💖
+  </div>
+</div>
+
+<script>
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+
+  const emojis = ["💗", "💖", "💕", "💘", "💜", "❤️"];
+  heart.innerHTML =
+    emojis[Math.floor(Math.random() * emojis.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize =
+    (Math.random() * 30 + 20) + "px";
+
+  const duration = Math.random() * 3 + 3;
+  heart.style.animationDuration = duration + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), duration * 1000);
+}
+
+setInterval(createHeart, 180);
+</script>
+
+</body>
+</html>
